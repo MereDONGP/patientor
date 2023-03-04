@@ -1,5 +1,5 @@
 import express from 'express'
-import {PatientData, addPatient} from '../src/services/patientService'
+import {PatientData, addPatient, getPatient} from '../src/services/patientService'
 
 const PatientRouter  = express.Router()
 
@@ -15,6 +15,12 @@ PatientRouter.post("/patients", (_req, res) => {
     const addingPatient = addPatient(_req.body)
 
     res.json(addingPatient)
+})
+
+PatientRouter.get("/:id", (_req, res) => {
+    const params = _req.params.id
+    res.json(getPatient(params))
+
 })
 
 export default PatientRouter

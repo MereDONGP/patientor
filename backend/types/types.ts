@@ -15,7 +15,8 @@ export interface PatientTypes {
     dateOfBirth: string,
     ssn: string,
     gender: String,
-    occupation: string
+    occupation: string,
+    entries: Entry[]
 
 }
 
@@ -32,3 +33,10 @@ export type Fields = {
     occupation: unknown
 
 }
+
+export interface Entry{
+
+}
+
+
+export type PublicPatient = Omit<PatientTypes, 'ssn' | 'entries'>

@@ -2,6 +2,7 @@ import patientData from "../../database/patients.json"
 import { ExcludeSSN, Fields, NewPatient} from "../../types/types"
 import patients from '../../database/patients.json'
 import { parseStrings, parseGender } from "../../types/parsing"
+import { PublicPatient } from "../../types/types"
 
 export function PatientData(): ExcludeSSN [] {
     const final = patientData.map(({id, name, dateOfBirth, ssn, gender, occupation}) => ({
@@ -10,7 +11,8 @@ export function PatientData(): ExcludeSSN [] {
         dateOfBirth,
         ssn,
         gender,
-        occupation
+        occupation,
+        entries:[]
     }))
 
     return final
@@ -23,8 +25,17 @@ export function addPatient({name, dateOfBirth, ssn, gender, occupation}: Fields)
         dateOfBirth: parseStrings(dateOfBirth),
         ssn: parseStrings(ssn),
         gender: parseGender(gender),
-        occupation: parseStrings(occupation)
+        occupation: parseStrings(occupation),
+        entries: []
     }
     patients.push(newEntry)
     return newEntry
+}
+
+export function getPatient(id: string): PublicPatient{
+
+    const getPatient = patientData.find(person => person.id === id)!
+    const final = {...getPatient, entries:[]}
+
+    return final
 }
